@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 RatioChiB1 = 0.62 # 1 if only chib1, 0 if only chib2
-sel_Chib_fileName = cms.untracked.string('py8-sel_ChiC.root')
-gen_Chib_fileName = cms.untracked.string('py8-gen_ChiC.root')
+sel_Chib_fileName = cms.untracked.string('py8-sel_ChiC1.root')
+gen_Chib_fileName = cms.untracked.string('py8-gen_ChiC1.root')
 Run = 1
 initSEED = 23400 + 3 * 1
 Nevents = 1000000
@@ -71,20 +71,19 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:startup_7E33v2', '')
 #process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("JetCorrectorParametersCollection_AK5PF_2012_V8_hlt_mc"),record=cms.string("JetCorrectionsRecord"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_PHYSICSTOOLS"),label=cms.untracked.string("AK5PFHLT"),))
 #process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("JetCorrectorParametersCollection_AK5PFchs_2012_V8_hlt_mc"),record=cms.string("JetCorrectionsRecord"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_PHYSICSTOOLS"),label=cms.untracked.string("AK5PFchsHLT"),))
 
-process.oniafilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(2, 1),
+process.oniafilter = cms.EDFilter("PythiaDauVFilter",
+    ParticleID = cms.untracked.int32(20443),
+    MotherID = cms.untracked.int32(0),
+    NumberDaughters = cms.untracked.int32(2),
+    DaughterIDs = cms.untracked.vint32(443, 22),
     MinPt = cms.untracked.vdouble(7.5, 0.2),
     MaxEta = cms.untracked.vdouble(9999., 9999.),
-    MinEta = cms.untracked.vdouble(-9999., -9999.),
-    ParticleCharge = cms.untracked.int32(0),
-    MinP = cms.untracked.vdouble(0.,0.),
-    ParticleID1 = cms.untracked.vint32(443),
-    ParticleID2 = cms.untracked.vint32(22)
+    MinEta = cms.untracked.vdouble(-9999., -9999.)
 )
 
 process.mumugenfilter = cms.EDFilter("PythiaDauVFilter",
     ParticleID = cms.untracked.int32(443),
-    MotherID = cms.untracked.int32(0),
+    MotherID = cms.untracked.int32(20443),
     NumberDaughters = cms.untracked.int32(2),
     DaughterIDs = cms.untracked.vint32(13, -13),
     MinPt = cms.untracked.vdouble(1.0, 1.0),
@@ -100,7 +99,7 @@ process.generator = cms.EDFilter("Pythia8GeneratorFilter",
             decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY_NOLONGLIFE.DEC'),
             particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
             user_decay_file = cms.FileInPath('POnia_mumugamma.dec'),
-            list_forced_decays = cms.vstring('Mychi_c1','Mychi_c2'),
+            list_forced_decays = cms.vstring('Mychi_c1'),
         ),
         parameterSets = cms.vstring('EvtGen')
     ),
