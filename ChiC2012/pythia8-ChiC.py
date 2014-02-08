@@ -5,7 +5,7 @@ sel_Chib_fileName = cms.untracked.string('py8-sel_ChiC.root')
 gen_Chib_fileName = cms.untracked.string('py8-gen_ChiC.root')
 Run = 1
 initSEED = 23400 + 3 * 1
-Nevents = 1000000
+Nevents = 100000
 
 process = cms.Process('chibSim')
 
@@ -26,7 +26,6 @@ process.load('Configuration.StandardSequences.SimL1Emulator_cff')
 process.load('Configuration.StandardSequences.DigiToRaw_cff')
 process.load('Configuration.StandardSequences.RawToDigi_cff')
 process.load('HLTrigger.Configuration.HLT_7E33v2_cff')
-#process.load('HLTrigger.Configuration.HLT_GRun_cff')
 process.load('Configuration.StandardSequences.Reconstruction_cff')
 #
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
@@ -54,22 +53,11 @@ process.RandomNumberGeneratorService.generator = cms.PSet(
 )
 
 process.options = cms.untracked.PSet(
-#	wantSummary = cms.untracked.bool(True)
+	wantSummary = cms.untracked.bool(True)
 )
 
-process.genstepfilter.triggerConditions=cms.vstring("gen")
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:startup_7E33v2', '')
-
-#process.GlobalTag.globaltag = 'START53_V14::All'
-#process.GlobalTag.toGet = cms.VPSet()
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("L1GtTriggerMenu_L1Menu_Collisions2012_v2_mc"),record=cms.string("L1GtTriggerMenuRcd"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_L1T"),))
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("L1GctJetFinderParams_GCTPhysics_2012_04_27_JetSeedThresh5GeV_mc"),record=cms.string("L1GctJetFinderParamsRcd"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_L1T"),))
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("L1HfRingEtScale_GCTPhysics_2012_04_27_JetSeedThresh5GeV_mc"),record=cms.string("L1HfRingEtScaleRcd"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_L1T"),))
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("L1HtMissScale_GCTPhysics_2012_04_27_JetSeedThresh5GeV_mc"),record=cms.string("L1HtMissScaleRcd"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_L1T"),))
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("L1JetEtScale_GCTPhysics_2012_04_27_JetSeedThresh5GeV_mc"),record=cms.string("L1JetEtScaleRcd"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_L1T"),))
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("JetCorrectorParametersCollection_AK5PF_2012_V8_hlt_mc"),record=cms.string("JetCorrectionsRecord"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_PHYSICSTOOLS"),label=cms.untracked.string("AK5PFHLT"),))
-#process.GlobalTag.toGet.append(cms.PSet(tag=cms.string("JetCorrectorParametersCollection_AK5PFchs_2012_V8_hlt_mc"),record=cms.string("JetCorrectionsRecord"),connect=cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_PHYSICSTOOLS"),label=cms.untracked.string("AK5PFchsHLT"),))
 
 process.oniafilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(2, 1),
@@ -145,19 +133,7 @@ process.generator = cms.EDFilter("Pythia8GeneratorFilter",
     )
 )
 
-process.ProductionFilterSequence = cms.Sequence(process.generator+process.oniafilter+process.mumugenfilter)
-
-process.triggerSelection = cms.EDFilter( "TriggerResultsFilter",
-				 triggerConditions = cms.vstring(
-					'HLT_Dimuon8_Jpsi_v*',
-				),
-				 hltResults = cms.InputTag( 'TriggerResults', '', 'HLT' ),
-				 l1tResults = cms.InputTag( 'gtDigis' ),
-				 l1tIgnoreMask = cms.bool( False ),
-				 l1techIgnorePrescales = cms.bool( False ),
-				 daqPartitions = cms.uint32( 1 ),
-				 throw = cms.bool( True )
-				 )
+process.ProductionFilterSequence = cms.Sequence(process.generator*process.oniafilter*process.mumugenfilter)
 
 process.load("Ponia.Modules.CHARM_chiCandProducer_cff")
 
@@ -174,6 +150,9 @@ process.recoout = cms.OutputModule(
 					    'keep *_g4SimHits__*',
 					    #'keep *'
 					    ),
+    SelectEvents = cms.untracked.PSet(
+                       SelectEvents = cms.vstring('pat')
+        )
     )
 
 process.genout = cms.OutputModule(
@@ -185,12 +164,24 @@ process.genout = cms.OutputModule(
 						'keep *_g4SimHits__*',
 						#'keep *'
 						),
-	)
+        SelectEvents = cms.untracked.PSet(
+                       SelectEvents = cms.vstring('gen')
+        )
+    )
+
+import HLTrigger.HLTfilters.triggerResultsFilter_cfi as hlt
+process.filter_1 = hlt.triggerResultsFilter.clone(
+                   triggerConditions =  ( 'HLT_Dimuon0_Jpsi_v*',
+                                          'HLT_Dimuon8_Jpsi_v*',
+                                          'HLT_Dimuon10_Jpsi_v*',
+                                        ),
+                   hltResults = cms.InputTag( 'TriggerResults' ),
+                   l1tResults = '',
+                   throw      = False
+)
+process.path_1 = cms.EndPath( process.filter_1 )
 
 # Path and EndPath definitions
-#process.gen = cms.Path(process.generator*
-#		       process.VtxSmeared*
-#		       process.genParticles)
 
 process.gen = cms.Path(process.pgen)
 
@@ -209,8 +200,6 @@ process.reco= cms.Path(process.RawToDigi*
 		       process.reconstruction*
 		       process.TrackRefitter)# why do we need this ?
 
-process.trigSel = cms.Path(process.triggerSelection)
-
 process.pat = cms.Path(process.muonMatch*
                        process.chiSequence
 		       )
@@ -228,7 +217,7 @@ process.schedule.append(	process.endgen)
 process.schedule.extend(	process.HLTSchedule)
 
 process.schedule.extend([	process.reco,
-				process.trigSel,
+				process.path_1,
 				process.pat,
 				process.summary,
 				process.endreco])
