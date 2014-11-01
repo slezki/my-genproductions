@@ -24,7 +24,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'StringFlav:mesonCL1S1J1 = 0.216',    # relative pseudovector production (L=1,S=1,J=1)/pseudoscalar for charm mesons
             'StringFlav:mesonCL1S1J2 = 0.',       # relative tensor production (L=1,S=1,J=2)/pseudoscalar for charm mesons
             '443:onMode = off',                   # Turn off J/psi decays
-            '443:onIfAny = 13 -13'                # just let J/psi -> mu+ mu-
+            '443:onIfMatch = 13 -13'              # just let J/psi -> mu+ mu-
         ),
         parameterSets = cms.vstring('pythiaUESettings',
             'processParameters'

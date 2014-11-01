@@ -58,11 +58,11 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'StringFlav:mesonCL1S1J1 = 0.216',    # relative pseudovector production (L=1,S=1,J=1)/pseudoscalar for charm mesons
             'StringFlav:mesonCL1S1J2 = 0.',       # relative tensor production (L=1,S=1,J=2)/pseudoscalar for charm mesons
             '20443:onMode = off',                 # Turn off Chic1 decays
-            '20443:onIfAny = 443 22',             # just let Chic1 -> J/psi gamma
+            '20443:onIfMatch = 443 22',           # just let Chic1 -> J/psi gamma
             '445:onMode = off',                   # Turn off Chic2 decays
-            '445:onIfAny = 443 22',               # just let Chic2 -> J/psi gamma
+            '445:onIfMatch = 443 22',             # just let Chic2 -> J/psi gamma
             '443:onMode = off',                   # Turn off J/psi decays
-            '443:onIfAny = 13 -13'                # just let J/psi -> mu+ mu-
+            '443:onIfMatch = 13 -13'              # just let J/psi -> mu+ mu-
         ),
         parameterSets = cms.vstring('pythiaUESettings',
             'processParameters'
