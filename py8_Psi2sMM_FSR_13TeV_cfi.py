@@ -10,13 +10,14 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring(
             'Main:timesAllowErrors    = 10000',
-            'ParticleDecays:limitTau0 = on',     # mstj(22)=2 - decay unstable particles
-            'ParticleDecays:tauMax = 10',        # parj(71)=10.- for which ctau < 10 mm
-            'PhaseSpace:pTHatMin = 10.0',        # ckin(3)
-            'Tune:pp 5'                          # Tune 4C
+            'ParticleDecays:limitTau0 = on',      # mstj(22)=2 - decay unstable particles
+            'ParticleDecays:tauMax = 10',         # parj(71)=10.- for which ctau < 10 mm
+            'PhaseSpace:pTHatMin = 10.0',         # ckin(3) > 10. be aware
+            'Tune:pp 5'                           # Tune 4C
         ),
         processParameters = cms.vstring(
             'Charmonium:all = on',                # Quarkonia, MSEL=61
+            'ParticleDecays:allowPhotonRadiation = on', # Turn on QED FSR
             'StringFlav:mesonCvector = 5.173',    # relative production vector/pseudoscalar for charm mesons
             'StringFlav:mesonCL1S1J0 = 0.072',    # relative scalar production (L=1,S=1,J=0)/pseudoscalar for charm mesons
             'StringFlav:mesonCL1S0J1 = 3.712',    # relative pseudovector production (L=1,S=0,J=1)/pseudoscalar for charm mesons
