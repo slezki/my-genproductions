@@ -20,6 +20,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             parameterSets = cms.vstring('EvtGen130')
     ),
     PythiaParameters = cms.PSet(    
+        pythia8CUEP8M1SettingsBlock,
         pythia8CommonSettings = cms.vstring(
             'Tune:preferLHAPDF = 2',
             'Main:timesAllowErrors = 10000',
@@ -31,7 +32,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'ParticleDecays:tau0Max = 10',
             'ParticleDecays:allowPhotonRadiation = off',  # Turn on/off QED FSR, see pythia8CommonSettings
         ),
-        pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
             'Charmonium:all = on',                        # Quarkonia, MSEL=61, including feed-down as well
             '443:onMode = off',                           # Turn off J/psi decays
