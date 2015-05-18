@@ -4,9 +4,9 @@ from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
                          pythiaPylistVerbosity = cms.untracked.int32(0),
-                         filterEfficiency = cms.untracked.double(0.00013),
+                         filterEfficiency = cms.untracked.double(0.00046),
                          pythiaHepMCVerbosity = cms.untracked.bool(False),
-                         crossSection = cms.untracked.double(54710000000.0),
+                         crossSection = cms.untracked.double(1049000000.0),
                          maxEventsToPrint = cms.untracked.int32(0),
                          comEnergy = cms.double(13000.0),
                          PythiaParameters = cms.PSet(
@@ -16,7 +16,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                                'HardQCD:all = on',
                                'ParticleDecays:allowPhotonRadiation = on', # Turn on QED FSR
 			       '511:onMode = off',      # ... speed up generation of J/psi using the most common b-hadrons
-			       '511:onIfAny = 443',
+			       '511:onIfAny = 443',     
 			       '521:onMode = off',
 			       '521:onIfAny = 443',
 			       '531:onMode = off',
