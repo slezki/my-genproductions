@@ -44,7 +44,7 @@ jpsifilter = cms.EDFilter("PythiaFilter",
                           Status = cms.untracked.int32(2),
                           MaxEta = cms.untracked.double(1000.0),
                           MinEta = cms.untracked.double(-1000.0),
-                          MinPt = cms.untracked.double(0.0),
+                          MinPt = cms.untracked.double(3.0),
                           ParticleID = cms.untracked.int32(443)
                           )
 

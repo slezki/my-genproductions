@@ -34,8 +34,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         ),
         processParameters = cms.vstring(
             'Charmonium:all = on',                        # Quarkonia, MSEL=61, including feed-down as well
-            '443:onMode = off',                           # Turn off J/psi decays
-            #'443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
             'PhaseSpace:pTHatMin = 0.'                    # be aware of this ckin(3) equivalent
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
@@ -51,7 +49,7 @@ oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),
     MaxEta = cms.untracked.double(1000.0),
     MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(0.0),
+    MinPt = cms.untracked.double(3.0),
     ParticleID = cms.untracked.int32(443)
 )
 
