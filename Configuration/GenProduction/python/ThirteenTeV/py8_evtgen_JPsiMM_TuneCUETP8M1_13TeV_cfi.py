@@ -34,7 +34,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         ),
         processParameters = cms.vstring(
             'Charmonium:all = on',                        # Quarkonia, MSEL=61, including feed-down as well
-            'PhaseSpace:pTHatMin = 0.'                    # be aware of this ckin(3) equivalent
+            'PhaseSpace:pTHatMin = 5.'                    # be aware of this ckin(3) equivalent
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',

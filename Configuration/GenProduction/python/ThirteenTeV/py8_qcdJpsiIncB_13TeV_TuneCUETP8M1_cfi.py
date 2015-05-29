@@ -14,6 +14,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                             pythia8CUEP8M1SettingsBlock,
                             processParameters = cms.vstring(
                                'HardQCD:all = on',
+                               'PhaseSpace:pTHatMin = 5.',                 # be aware of this ckin(3) equivalent
                                'ParticleDecays:allowPhotonRadiation = on', # Turn on QED FSR
 			       '511:onMode = off',      # ... speed up generation of J/psi using the most common b-hadrons
 			       '511:onIfAny = 443',     
