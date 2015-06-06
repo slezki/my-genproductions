@@ -32,7 +32,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                                'ParticleDecays:allowPhotonRadiation = off',  # Turn on/off QED FSR, see pythia8CommonSettings
                             ),
                             processParameters = cms.vstring('HardQCD:all = on',
-                               'PhaseSpace:pTHatMin = 5.'                    # be aware of this ckin(3) equivalent
+                               'PhaseSpace:pTHatMin = 2.'                    # be aware of this ckin(3) equivalent
                             ),
                             parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
