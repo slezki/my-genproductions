@@ -17,7 +17,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'ParticleDecays:allowPhotonRadiation = on',  # Turn on/off QED FSR, see pythia8CommonSettings
             '443:onMode = off',                          # Turn off J/psi decays
             '443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
-            'PhaseSpace:pTHatMin = 5.'                   # be aware of this ckin(3) equivalent
+            'PhaseSpace:pTHatMin = 3.'                   # be aware of this ckin(3) equivalent
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
@@ -30,16 +30,16 @@ oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),
     MaxEta = cms.untracked.double(1000.0),
     MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(3.0),
+    MinPt = cms.untracked.double(0.0),
     ParticleID = cms.untracked.int32(443)
 )
 
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.5, 0.5),
+    MinPt = cms.untracked.vdouble(0.0, 0.0),
     MinP = cms.untracked.vdouble(0., 0.),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
+    MaxEta = cms.untracked.vdouble(2.4, 2.4),
+    MinEta = cms.untracked.vdouble(-2.4, -2.4),
     MinInvMass = cms.untracked.double(2.0),
     MaxInvMass = cms.untracked.double(4.0),
     ParticleCharge = cms.untracked.int32(-1),

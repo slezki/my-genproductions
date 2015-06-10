@@ -4,9 +4,9 @@ from GeneratorInterface.EvtGenInterface.EvtGenSetting_cff import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.025),
+    filterEfficiency = cms.untracked.double(0.077),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
-    crossSection = cms.untracked.double(29710000.0),
+    crossSection = cms.untracked.double(90180000.0),
     comEnergy = cms.double(13000.0),
     maxEventsToPrint = cms.untracked.int32(0),
     ExternalDecays = cms.PSet(
@@ -33,8 +33,9 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'ParticleDecays:allowPhotonRadiation = off',  # Turn on/off QED FSR, see pythia8CommonSettings
         ),
         processParameters = cms.vstring(
-            'Charmonium:all = on',                        # Quarkonia, MSEL=61, including feed-down as well
-            'PhaseSpace:pTHatMin = 3.'                    # be aware of this ckin(3) equivalent
+            'SoftQCD:nonDiffractive = on',
+	    'SoftQCD:singleDiffractive = on',
+	    'SoftQCD:doubleDiffractive = on',
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
