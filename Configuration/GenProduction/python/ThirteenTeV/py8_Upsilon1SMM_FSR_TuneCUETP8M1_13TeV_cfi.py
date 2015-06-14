@@ -17,7 +17,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'ParticleDecays:allowPhotonRadiation = on', # Turn on QED FSR
             '553:onMode = off',                         # Turn off Upsilon decays
             '553:onIfMatch = 13 -13',                   # just let Upsilon -> mu+ mu-
-            'PhaseSpace:pTHatMin = 3.0'                 # ckin(3), be aware of this
+            'PhaseSpace:pTHatMin = 4.0'                 # ckin(3), be aware of this
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
