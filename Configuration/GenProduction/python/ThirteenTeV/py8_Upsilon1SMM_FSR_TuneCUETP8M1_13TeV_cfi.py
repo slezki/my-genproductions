@@ -13,11 +13,11 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
-            'Bottomonium:all = on',                     # Quarkonia, MSEL=62
+            'Bottomonium:all = on',                     # Quarkonia, MSEL=62, allow feed-down
             'ParticleDecays:allowPhotonRadiation = on', # Turn on QED FSR
             '553:onMode = off',                         # Turn off Upsilon decays
             '553:onIfMatch = 13 -13',                   # just let Upsilon -> mu+ mu-
-            'PhaseSpace:pTHatMin = 5.0'                 # ckin(3), be aware of this
+            'PhaseSpace:pTHatMin = 3.0'                 # ckin(3), be aware of this
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
@@ -26,25 +26,37 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         )
 )
 
+
+# Next two muon filter are derived from muon reconstruction
+muminusfilter = cms.EDFilter("PythiaDauVFilter",
+    MotherID = cms.untracked.int32(0),
+    MinPt = cms.untracked.vdouble(0.5, 0.5, 1.5, 1.5, 2.5),
+    ParticleID = cms.untracked.int32(553),
+    ChargeConjugation = cms.untracked.bool(False),
+    MinEta = cms.untracked.vdouble(1.6, -2.4, 1.2, -1.6, -1.2),
+    MaxEta = cms.untracked.vdouble(2.4, -1.6, 1.6, -1.2, 1.2),
+    NumberDaughters = cms.untracked.int32(1),
+    DaughterIDs = cms.untracked.vint32(-13, -13, -13, -13, -13)
+)
+
+muplusfilter = cms.EDFilter("PythiaDauVFilter",
+    MotherID = cms.untracked.int32(0),
+    MinPt = cms.untracked.vdouble(0.5, 0.5, 1.5, 1.5, 2.5),
+    ParticleID = cms.untracked.int32(553),
+    ChargeConjugation = cms.untracked.bool(False),
+    MinEta = cms.untracked.vdouble(1.6, -2.4, 1.2, -1.6, -1.2),
+    MaxEta = cms.untracked.vdouble(2.4, -1.6, 1.6, -1.2, 1.2),
+    NumberDaughters = cms.untracked.int32(1),
+    DaughterIDs = cms.untracked.vint32(13, 13, 13, 13, 13)
+)
+
 oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),
     MaxEta = cms.untracked.double(1000.0),
     MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(0.0),
+    MinPt = cms.untracked.double(6.0),
     ParticleID = cms.untracked.int32(553)
 )
 
-mumugenfilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.5, 0.5),
-    MinP = cms.untracked.vdouble(0., 0.),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    MinInvMass = cms.untracked.double(5.0),
-    MaxInvMass = cms.untracked.double(20.0),
-    ParticleCharge = cms.untracked.int32(-1),
-    ParticleID1 = cms.untracked.vint32(13),
-    ParticleID2 = cms.untracked.vint32(13)
-)
+ProductionFilterSequence = cms.Sequence(generator*oniafilter*muminusfilter*muplusfilter)
 
-ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)

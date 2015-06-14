@@ -26,25 +26,35 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         )
 )
 
+# Next two muon filter are derived from muon reconstruction
+muminusfilter = cms.EDFilter("PythiaDauVFilter",
+    MotherID = cms.untracked.int32(0),
+    MinPt = cms.untracked.vdouble(0.5, 0.5, 1.5, 1.5, 2.5),
+    ParticleID = cms.untracked.int32(443),
+    ChargeConjugation = cms.untracked.bool(False),
+    MinEta = cms.untracked.vdouble(1.6, -2.4, 1.2, -1.6, -1.2),
+    MaxEta = cms.untracked.vdouble(2.4, -1.6, 1.6, -1.2, 1.2),
+    NumberDaughters = cms.untracked.int32(1),
+    DaughterIDs = cms.untracked.vint32(-13, -13, -13, -13, -13)
+)
+
+muplusfilter = cms.EDFilter("PythiaDauVFilter",
+    MotherID = cms.untracked.int32(0),
+    MinPt = cms.untracked.vdouble(0.5, 0.5, 1.5, 1.5, 2.5),
+    ParticleID = cms.untracked.int32(443),
+    ChargeConjugation = cms.untracked.bool(False),
+    MinEta = cms.untracked.vdouble(1.6, -2.4, 1.2, -1.6, -1.2),
+    MaxEta = cms.untracked.vdouble(2.4, -1.6, 1.6, -1.2, 1.2),
+    NumberDaughters = cms.untracked.int32(1),
+    DaughterIDs = cms.untracked.vint32(13, 13, 13, 13, 13)
+)
+
 oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),
     MaxEta = cms.untracked.double(1000.0),
     MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(3.0),
+    MinPt = cms.untracked.double(8.0),
     ParticleID = cms.untracked.int32(443)
 )
 
-mumugenfilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.5, 0.5),
-    MinP = cms.untracked.vdouble(0., 0.),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    MinInvMass = cms.untracked.double(2.0),
-    MaxInvMass = cms.untracked.double(4.0),
-    ParticleCharge = cms.untracked.int32(-1),
-    ParticleID1 = cms.untracked.vint32(13),
-    ParticleID2 = cms.untracked.vint32(13)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*oniafilter*muminusfilter*muplusfilter)
