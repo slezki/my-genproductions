@@ -21,7 +21,7 @@ generator = cms.EDFilter("Pythia8PtGun",
        pythiaJpsiDecays = cms.vstring(
             '443:onMode = off',                          # Turn off J/psi decays
             '443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
-       )
+       ),
        parameterSets = cms.vstring('pythiaJpsiDecays')
    ),
    parameterSets = cms.vstring('pythia8CommonSettings',
