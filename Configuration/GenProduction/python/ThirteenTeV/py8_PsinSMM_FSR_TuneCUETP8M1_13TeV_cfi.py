@@ -19,7 +19,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
              '443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
              '100443:onMode = off',                       # turn off Psi(2S) decays
              '100443:onIfMatch = 13 -13',                 # let Psi(2S) -> mu+ mu-
-             '100443:onIfAny = 443',                      # let Psi(2S) -> J/psi X
+             '100443:onIfAny = 443 445 10441 10443 20443',                      # let Psi(2S) -> J/psi X
              'PhaseSpace:pTHatMin = 2.'                   # be aware of this ckin(3) equivalent
          ),
          parameterSets = cms.vstring(
