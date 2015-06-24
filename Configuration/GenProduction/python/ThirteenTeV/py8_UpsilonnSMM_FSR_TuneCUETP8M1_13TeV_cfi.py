@@ -14,13 +14,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
          pythia8CUEP8M1SettingsBlock,
          processParameters = cms.vstring(
              'Bottomonium:all = on',                      # Quarkonia, MSEL=62, including feed-down as well
-             'ParticleDecays:allowPhotonRadiation = on',  # Turn on/off QED FSR, see pythia8CommonSettings
-             '553:onMode = off',                          # Turn off Upsilon(1S) decays
-             '553:onIfMatch = 13 -13',                    # just let Upsilon(1S) -> mu+ mu-
-             '100553:onMode = off',                       # turn off Upsilon(2S) decays
-             '100553:onIfMatch = 13 -13',                 # let Upsilon(2S) -> mu+ mu-
-             '200553:onMode = off',                       # turn off Upsilon(3S) decays
-             '200553:onIfMatch = 13 -13',                 # let Upsilon(3S) -> mu+ mu-
              'PhaseSpace:pTHatMin = 2.'                   # be aware of this ckin(3) equivalent
          ),
          parameterSets = cms.vstring(
