@@ -19,10 +19,10 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
              '553:onIfMatch = 13 -13',                    # just let Upsilon(1S) -> mu+ mu-
              '100553:onMode = off',                       # turn off Upsilon(2S) decays
              '100553:onIfMatch = 13 -13',                 # let Upsilon(2S) -> mu+ mu-
-             '100553:onIfAny = 553',                      # let Upsilon(2S) -> Upsilon X
+             '100553:onIfAny = 553 555 10551 20553',                      # let Upsilon(2S) -> Upsilon X
              '200553:onMode = off',                       # turn off Upsilon(3S) decays
              '200553:onIfMatch = 13 -13',                 # let Upsilon(3S) -> mu+ mu-
-             '200553:onIfAny = 553',                      # let Upsilon(3S) -> Upsilon X
+             '200553:onIfAny = 553 100553',                      # let Upsilon(3S) -> Upsilon X
              'PhaseSpace:pTHatMin = 2.'                   # be aware of this ckin(3) equivalent
          ),
          parameterSets = cms.vstring(
