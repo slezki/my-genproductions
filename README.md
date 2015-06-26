@@ -19,7 +19,7 @@ eval `scram runtime -sh`
 pyfile=Configuration/GenProduction/python/ThirteenTeV/py8_JPsiMM_FSR_TuneCUETP8M1_13TeV_cfi.py
 
 curl -s --insecure \
-https://raw.githubusercontent.com/alberto-sanchez/my-genproductions/test-nokin/$pyfile \
+https://raw.githubusercontent.com/alberto-sanchez/my-genproductions/recokin/$pyfile \
 --retry 2 --create-dirs -o $pyfile
 
 scram b
