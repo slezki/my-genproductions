@@ -14,7 +14,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
             'Charmonium:all = on',                       # Quarkonia, MSEL=61, including feed-down as well
-            'ParticleDecays:allowPhotonRadiation = on',  # Turn on/off QED FSR, see pythia8CommonSettings
             '443:onMode = off',                          # Turn off J/psi decays
             '443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
             'PhaseSpace:pTHatMin = 2.'                   # be aware of this ckin(3) equivalent
