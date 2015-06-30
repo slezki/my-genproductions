@@ -16,7 +16,7 @@ fi
 cd CMSSW_7_1_16_patch2/src
 eval `scram runtime -sh`
 
-pyfile=Configuration/GenProduction/python/ThirteenTeV/py8_JPsiMM_FSR_TuneCUETP8M1_13TeV_cfi.py
+pyfile=Configuration/GenProduction/python/ThirteenTeV/BPH-RunIIWinter15GS-00028-fragment.py
 
 curl -s --insecure \
 https://raw.githubusercontent.com/alberto-sanchez/my-genproductions/ana15/$pyfile \
