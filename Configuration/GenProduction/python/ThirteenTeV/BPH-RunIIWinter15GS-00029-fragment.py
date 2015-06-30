@@ -12,8 +12,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         EvtGen130 = cms.untracked.PSet(
             decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2010.DEC'),
             particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
-            user_decay_file = cms.vstring('GeneratorInterface/ExternalDecays/data/incl_BtoJpsi_mumu.dec'),
-            list_forced_decays = cms.vstring('MyB+','MyB-','MyB0','Myanti-B0','MyB_s0','Myanti-B_s0','MyLambda_b0','Myanti-Lambda_b0'),
             operates_on_particles = cms.vint32()
         ),
         parameterSets = cms.vstring('EvtGen130')
@@ -21,9 +19,9 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
-        processParameters = cms.vstring(      
+        processParameters = cms.vstring(     
             'HardQCD:all = on',
-            'PhaseSpace:pTHatMin = 8.'
+            'PhaseSpace:pTHatMin = 10.',
         ),
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
@@ -39,16 +37,17 @@ bfilter = cms.EDFilter("PythiaFilter",
                        ParticleID = cms.untracked.int32(5)
                        )
 
-# match one single particle of a list 
-oniafilter = cms.EDFilter("MCSingleParticleFilter",
-    ParticleID = cms.untracked.vint32(443, 100443),
-    MinPt = cms.untracked.vdouble(8.0, 6.0),
-    MinEta = cms.untracked.vdouble(-99., -99.),
-    MaxEta = cms.untracked.vdouble(99., 99.),
-    Status = cms.untracked.vint32(2, 2)
+
+
+oniafilter = cms.EDFilter("PythiaFilter",
+    Status = cms.untracked.int32(2),
+    MaxEta = cms.untracked.double(1000.0),
+    MinEta = cms.untracked.double(-1000.0),
+    MinPt = cms.untracked.double(8.0),
+    ParticleID = cms.untracked.int32(443)
 )
 
-# two muons with invariant mass in the J/psi and Psi(2s) mass range
+
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
     MinPt = cms.untracked.vdouble(0.5, 0.5),
@@ -61,6 +60,7 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID1 = cms.untracked.vint32(13),
     ParticleID2 = cms.untracked.vint32(13)
 )
+
 
 
 ProductionFilterSequence = cms.Sequence(generator*bfilter*oniafilter*mumugenfilter)
