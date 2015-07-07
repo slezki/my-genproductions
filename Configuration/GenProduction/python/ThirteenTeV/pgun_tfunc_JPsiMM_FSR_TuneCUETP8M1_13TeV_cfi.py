@@ -21,15 +21,15 @@ generator = cms.EDFilter("Pythia8PtGunTFunc",
         TFunction_max = cms.double(120.),
    ),
    PythiaParameters = cms.PSet(
+       pythia8CommonSettingsBlock,
+       pythia8CUEP8M1SettingsBlock,
        pythiaJpsiDecays = cms.vstring(
             '443:onMode = off',                          # Turn off J/psi decays
             '443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
        ),
-       parameterSets = cms.vstring('pythiaJpsiDecays')
-   ),
-   parameterSets = cms.vstring('pythia8CommonSettings',
-                               'pythia8CUEP8M1Settings',
-                               'processParameters',
+       parameterSets = cms.vstring('pythia8CommonSettings',
+                                   'pythia8CUEP8M1Settings',
+                                   'pythiaJpsiDecays')
    )
 )
 
