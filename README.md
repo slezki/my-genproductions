@@ -8,12 +8,12 @@ development of genproductions
 #!/bin/bash
 source  /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc6_amd64_gcc481
-if [ -r CMSSW_7_1_16_patch2/src ] ; then
- echo release CMSSW_7_1_16_patch2 already exists
+if [ -r CMSSW_7_1_22/src ] ; then
+ echo release CMSSW_7_1_22 already exists
 else
-scram p CMSSW CMSSW_7_1_16_patch2
+scram p CMSSW CMSSW_7_1_22
 fi
-cd CMSSW_7_1_16_patch2/src
+cd CMSSW_7_1_22/src
 eval `scram runtime -sh`
 
 pyfile=Configuration/GenProduction/python/ThirteenTeV/py8_JPsiMM_FSR_TuneCUETP8M1_13TeV_cfi.py
