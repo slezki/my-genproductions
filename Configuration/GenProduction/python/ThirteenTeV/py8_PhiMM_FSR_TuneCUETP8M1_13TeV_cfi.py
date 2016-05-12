@@ -3,6 +3,16 @@ from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
+    ExternalDecays = cms.PSet(
+        parameterSets = cms.vstring('EvtGen130'),
+        EvtGen130 = cms.untracked.PSet(
+            decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2010_NOLONGLIFE.DEC'),
+            operates_on_particles = cms.vint32(333),
+            user_decay_file = cms.vstring('GeneratorInterface/ExternalDecays/data/Phi_MuMu.dec'),
+            list_forced_decays = cms.vstring('MyPhi'),
+            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl')
+        )
+    ),
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.026),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -13,10 +23,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
          pythia8CommonSettingsBlock,
          pythia8CUEP8M1SettingsBlock,
          processParameters = cms.vstring(
-             'SoftQCD:all = on',                          
-             '333:onMode = off',                          # Turn off phi decays
-             '333:onIfMatch = 13 -13',                    # just let phi -> mu+ mu-
-            # 'PhaseSpace:pTHatMin = 2.'                   # be aware of this ckin(3) equivalent
+            'HardQCD:all = on',
+            'PhaseSpace:pTHatMin = 8.'
          ),
          parameterSets = cms.vstring(
              'pythia8CommonSettings',
@@ -27,25 +35,14 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 #filter two muons in the phi(1020) mass region
-mumugenfilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.5, 0.5),
-    MinP = cms.untracked.vdouble(0., 0.),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    MinInvMass = cms.untracked.double(0.5),
-    MaxInvMass = cms.untracked.double(1.5),
-    ParticleCharge = cms.untracked.int32(-1),
-    ParticleID1 = cms.untracked.vint32(13),
-    ParticleID2 = cms.untracked.vint32(13)
+decayfilter = cms.EDFilter("PythiaDauVFilter",
+    verbose         = cms.untracked.int32(1),
+    NumberDaughters = cms.untracked.int32(2),
+    ParticleID      = cms.untracked.int32(333),
+    DaughterIDs     = cms.untracked.vint32(13, -13),
+    MinPt           = cms.untracked.vdouble(2.5, 2.5),
+    MinEta          = cms.untracked.vdouble(-2.5, -2.5),
+    MaxEta          = cms.untracked.vdouble( 2.5,  2.5)
 )
 
-oniafilter = cms.EDFilter("PythiaFilter",
-    Status = cms.untracked.int32(2),
-    MaxEta = cms.untracked.double(1000.0),
-    MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(5.0),
-    ParticleID = cms.untracked.int32(333)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*decayfilter)
