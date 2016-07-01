@@ -2,17 +2,6 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 
 generator = cms.EDProducer("Pythia6PtYGun",
-    ExternalDecays = cms.PSet(
-        EvtGen = cms.untracked.PSet(
-            use_default_decay = cms.untracked.bool(False),
-            decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY_NOLONGLIFE.DEC'),
-            particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
-            user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/Onia_chic_jpsigamma.dec'),
-            list_forced_decays = cms.vstring('Mychi_c1','Mychi_c2'),
-            operates_on_particles = cms.vint32(20443,445)
-        ),
-        parameterSets = cms.vstring('EvtGen')
-    ),
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
