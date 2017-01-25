@@ -25,9 +25,9 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 FourMuonFilter = cms.EDFilter("FourLepFilter",
-    MinPt = cms.untracked.double(0.0),
+    MinPt = cms.untracked.double(2.0),
     MaxPt = cms.untracked.double(4000.0),
-    MaxEta = cms.untracked.double(10.),
+    MaxEta = cms.untracked.double(2.5),
     MinEta = cms.untracked.double(0.),
     ParticleID = cms.untracked.int32(13)
 )
