@@ -22,10 +22,10 @@ generator = cms.EDFilter(
 
 TwoMuonFilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1,1),
-    MinPt = cms.untracked.vdouble(0.0,0.0),
+    MinPt = cms.untracked.vdouble(2.0,2.0),
     MaxPt = cms.untracked.vdouble(4000.0,4000.0),
-    MaxEta = cms.untracked.vdouble( 10.,10.),
-    MinEta = cms.untracked.vdouble(-10.,-10.),
+    MaxEta = cms.untracked.vdouble( 2.5,2.5),
+    MinEta = cms.untracked.vdouble(-2.5,-2.5),
     ParticleID1 = cms.untracked.vint32(13),
     ParticleID2 = cms.untracked.vint32(-13),
     MinInvMass = cms.untracked.double(8.5),
