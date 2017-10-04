@@ -2,7 +2,7 @@
 #
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -46,7 +46,7 @@ End
     ),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CUEP8M1SettingsBlock,
+	pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
             'Bottomonium:states(3PJ) = 20553,555',
             'Bottomonium:O(3PJ)[3P0(1)] = 0.085,0.085',
@@ -64,7 +64,7 @@ End
             '555:onMode = off'
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CUEP8M1Settings',
+                                    'pythia8CP5Settings',
                                     'processParameters',
                                     )
     )

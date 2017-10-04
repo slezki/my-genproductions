@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -9,10 +9,11 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     comEnergy = cms.double(13000.0),
     ExternalDecays = cms.PSet(
         EvtGen130 = cms.untracked.PSet(
-            decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2010_NOLONGLIFE.DEC'),
-            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
-            list_forced_decays = cms.vstring('mychi_b0','mychi_b1','mychi_b2'),   # will force one at the time
-            operates_on_particles = cms.vint32(10551,20553,555),                  # we care just about our signal particles
+            decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2014_NOLONGLIFE.DEC'),
+            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt_2014.pdl'),
+            list_forced_decays = cms.vstring('mychi_b0','mychi_b1','mychi_b2'),        # will force one at the time
+            operates_on_particles = cms.vint32(10551,20553,555),                       # we care just about our signal particles
+            convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """
 Alias myUpsilon Upsilon
@@ -44,7 +45,7 @@ End
     ),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CUEP8M1SettingsBlock,
+	pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
 # generate just the needed and nothing else
             'Bottomonium:states(3PJ) = 10551,20553,555',
@@ -60,7 +61,7 @@ End
             'PhaseSpace:pTHatMin = 2.'
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CUEP8M1Settings',
+                                    'pythia8CP5Settings',
                                     'processParameters',
                                     )
     )

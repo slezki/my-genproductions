@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -9,23 +9,34 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     comEnergy = cms.double(13000.0),
     ExternalDecays = cms.PSet(
         EvtGen130 = cms.untracked.PSet(
-            decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2010_NOLONGLIFE.DEC'),
-            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
+            decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2014_NOLONGLIFE.DEC'),
+            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt_2014.pdl'),
+            operates_on_particles = cms.vint32(20443,445),                       # we care just about our signal particles
+            convertPythiaCodes = cms.untracked.bool(False),
             user_decay_file = cms.vstring('GeneratorInterface/ExternalDecays/data/Onia_chic_jpsigamma.dec'),
             list_forced_decays = cms.vstring('Mychi_c1','Mychi_c2'),
-            operates_on_particles = cms.vint32()
         ),
         parameterSets = cms.vstring('EvtGen130')
     ),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CUEP8M1SettingsBlock,
+	pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
-            'Charmonium:all = on',                       # Quarkonia, MSEL=61, including feed-down as well
+# generate just the needed and nothing else
+            'Charmonium:states(3PJ) = 20443,445',
+            'Charmonium:O(3PJ)[3P0(1)] = 0.05,0.05',
+            'Charmonium:O(3PJ)[3S1(8)] = 0.0031,0.0031',
+            'Charmonium:gg2ccbar(3PJ)[3PJ(1)]g = on,on',
+            'Charmonium:qg2ccbar(3PJ)[3PJ(1)]q = on,on',
+            'Charmonium:qqbar2ccbar(3PJ)[3PJ(1)]g = on,on',
+            'Charmonium:gg2ccbar(3PJ)[3S1(8)]g = on,on',
+            'Charmonium:qg2ccbar(3PJ)[3S1(8)]q = on,on',
+            'Charmonium:qqbar2ccbar(3PJ)[3S1(8)]g = on,on',
+#
             'PhaseSpace:pTHatMin = 2.'                   # be aware of this ckin(3) equivalent
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CUEP8M1Settings',
+                                    'pythia8CP5Settings',
                                     'processParameters',
                                     )
     )
