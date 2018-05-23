@@ -25,7 +25,7 @@ generator = cms.EDFilter("Pythia8PtCustomYGun",
        pythia8CUEP8M1SettingsBlock,
        processParameters = cms.vstring(
             #'absPDGCode:new = Name antiName spin charge colour m0 mWidth mMin mMax tau0'
-            '100541:new = B_c(2S)+ B_c(2S)- 1 3 0 6.8670000e+00 0.0000000e+00 6.867 6.867 0.0000000e+00',
+            '100541:new = B_c(2S)+ B_c(2S)- 1 3 0 6.8670000e+00 0.0100000e+00 6.767 6.967 0.0000000e+00',
             '100541:isResonance = false',
             '100541:addChannel = 1 1.0 0 541 211 -211',
 	    '100541:mayDecay = on',
