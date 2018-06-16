@@ -17,6 +17,11 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                              convertPythiaCodes = cms.untracked.bool(False),
                              user_decay_embedded= cms.vstring(
 """
+Particle B_c*+     6.34000 0.00000
+Particle B_c+      6.27490 0.00000
+Particle B_c(2S)+  6.86300 0.00000
+Particle B_c*(2S)+ 6.90300 0.00000
+
 Alias B_c+_SIGNAL B_c+
 Alias B_c-_SIGNAL B_c-
 Alias myJ/psi J/psi
