@@ -51,7 +51,7 @@ eval `scram runtime -sh`
 
 pyfile=bc-pythia-had-evtgen-cp5.py
 pydir=Configuration/GenProduction/python
-myurl=https://raw.githubusercontent.com/alberto-sanchez/my-genproductions/master/lhe-custom-hadronization/$pyfile
+myurl=https://raw.githubusercontent.com/alberto-sanchez/my-genproductions/master/lhe-custom-hadronization
 
 curl -s --insecure $myurl/$pyfile --retry 2 --create-dirs -o $pydir/$pyfile
 [ -s ${pyfile} ] || exit $?;
