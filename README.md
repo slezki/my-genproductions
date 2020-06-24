@@ -1,10 +1,10 @@
 # my-genproductions
-Development of genproductions. Be aware that this configs have being tested just for the official MC branch 7_1_x for runII and
-5_3_x for runI (when apply), other than that could work, but it not warranty. For testing porpouses always try to use the latest
-version in either branch.
+Development of genproductions. Be aware that this configs have being tested just for the official MC branch for runII 
+(in the appropiate release: 7_1_x, 9_3_x, and 10_2_x) and for runI (5_3_x when apply), other than that could work, 
+but it not warranty. For testing porpouses always try to use the latest version in either branch.
 
 
-**Setup:**
+**Setup as example for 7_1_x:**
 
 ```
 #!/bin/bash
