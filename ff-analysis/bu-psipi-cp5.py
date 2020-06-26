@@ -61,11 +61,11 @@ End
 generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)
 
 bgenfilter = cms.EDFilter("PythiaDauVFilter",
-    DaughterIDs = cms.untracked.vint32(211),
-    MaxEta = cms.untracked.vdouble(2.5),
-    MinEta = cms.untracked.vdouble(-2.5),
-    MinPt = cms.untracked.vdouble(1.0),
-    NumberDaughters = cms.untracked.int32(1),
+    DaughterIDs = cms.untracked.vint32(211, 443),
+    MaxEta = cms.untracked.vdouble(2.5, 99.),
+    MinEta = cms.untracked.vdouble(-2.5, -99.),
+    MinPt = cms.untracked.vdouble(1.0, -99.),
+    NumberDaughters = cms.untracked.int32(2),
     ParticleID = cms.untracked.int32(521),
     verbose = cms.untracked.int32(0)
 )
