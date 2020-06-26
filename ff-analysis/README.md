@@ -10,16 +10,16 @@ version in either branch.
 #!/bin/bash
 source  /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc6_amd64_gcc481
-if [ -r CMSSW_7_1_33/src ] ; then
- echo release CMSSW_7_1_33 already exists
+if [ -r CMSSW_7_1_46/src ] ; then
+ echo release CMSSW_7_1_46 already exists
 else
-scram p CMSSW CMSSW_7_1_33
+scram p CMSSW CMSSW_7_1_46
 fi
-cd CMSSW_7_1_33/src
+cd CMSSW_7_1_46/src
 eval `scram runtime -sh`
 
 pydir=Configuration/GenProduction/python
-pyfile=bu-psipi-cuep8m1.py
+pyfile=bu-psipi-cp5.py
 
 curl -s --insecure \
 https://raw.githubusercontent.com/alberto-sanchez/my-genproductions/master/ff-analysis/$pyfile \
