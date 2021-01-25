@@ -14,7 +14,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'Charmonium:all = on',                       # Quarkonia, MSEL=61, including feed-down as well
             '443:onMode = off',                          # Turn off J/psi decays
             '443:onIfMatch = 13 -13',                    # just let J/psi -> mu+ mu-
-            'PhaseSpace:pTHatMin = 15.'                  # this cut should around 10 GeV below the actual cut on Onia
+            'PhaseSpace:pTHatMin = 10.'                  # this cut should around 10 GeV below the actual cut on Onia
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
