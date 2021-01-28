@@ -27,9 +27,11 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                 'Charmonium:gg2ccbar(3S1)[3PJ(8)]g = on',
                 'Charmonium:qg2ccbar(3S1)[3PJ(8)]q = on',
                 'Charmonium:qqbar2ccbar(3S1)[3PJ(8)]g = on',
-                '100443:onMode = on',                          # Turn off psi2s decays
-                #'100443:onIfMatch = 13 -13',                    # just let psi2s -> mu+ mu-
-                'PhaseSpace:pTHatMin = 15.'
+                '100443:onMode = off',
+                '100443:onIfMatch = 443 211 -211',
+                '443:onMode = off',
+                '443:onIfMatch = 13 -13',              
+                'PhaseSpace:pTHatMin = 10.'
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
